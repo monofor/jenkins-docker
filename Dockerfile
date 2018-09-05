@@ -1,4 +1,5 @@
 FROM jenkins/jenkins:latest
+
 # if we want to install via apt
 USER root
 RUN apt-get update && apt-get install -y --no-install-recommends git
@@ -21,14 +22,22 @@ RUN apt-get update \
     zlib1g \
     && rm -rf /var/lib/apt/lists/*
 
-# Install .NET Core SDK
-ENV DOTNET_SDK_DOWNLOAD_URL https://dotnetcli.blob.core.windows.net/dotnet/Sdk/release/2.1.401/dotnet-sdk-latest-linux-x64.tar.gz
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+    curl libunwind8 gettext apt-transport-https && \
+    curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg && \
+    mv microsoft.gpg /etc/apt/trusted.gpg.d/microsoft.gpg && \
+    sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/microsoft-debian-stretch-prod stretch main" > /etc/apt/sources.list.d/dotnetdev.list' && \
+    apt-get update
 
-RUN curl -SL $DOTNET_SDK_DOWNLOAD_URL --output dotnet.tar.gz \
-    && mkdir -p /usr/share/dotnet \
-    && tar -zxf dotnet.tar.gz -C /usr/share/dotnet \
-    && rm dotnet.tar.gz \
-    && ln -s /usr/share/dotnet/dotnet /usr/bin/dotnet
+# Install the .Net Core framework, set the path, and show the version of core installed.
+RUN apt-get install -y dotnet-sdk-2.1 && \
+    export PATH=$PATH:$HOME/dotnet && \
+    dotnet --version
+
+# Install SonarQube Dotnet Tool
+RUN curl -SL https://github.com/SonarSource/sonar-scanner-msbuild/releases/download/4.3.1.1372/sonar-scanner-msbuild-4.3.1.1372-netcoreapp2.0.zip --output dotnet.sonarscanner.zip
+RUN unzip dotnet.sonarscanner.zip -d /usr/share/dotnet-sonarscanner
 
 # Trigger the population of the local package cache
 ENV NUGET_XMLDOC_MODE skip
@@ -65,10 +74,3 @@ RUN apt-get update && \
     apt-get -y install docker-ce
 
 RUN sudo usermod -a -G docker jenkins
-
-# drop back to the regular jenkins user - good practice
-USER jenkins
-
-# Install SonarQube Dotnet Tool
-RUN dotnet tool install --global dotnet-sonarscanner --version 4.3.1
-ENV PATH="${PATH}:~/.dotnet/tools"
