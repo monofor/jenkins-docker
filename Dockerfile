@@ -23,10 +23,8 @@ RUN apt-get update \
 
 # Install .NET Core SDK
 ENV DOTNET_SDK_DOWNLOAD_URL https://dotnetcli.blob.core.windows.net/dotnet/Sdk/release/2.1.401/dotnet-sdk-latest-linux-x64.tar.gz
-ENV DOTNET_SDK_DOWNLOAD_SHA 93C8E45B518BAEAA26FC14DDFF51DD862612EFBFCD5C28AAACDC7B6053CE8B79B4AE0AAA474F5164A09A75E9EDB241CAD356848A85AFA0F4E270C1B86EDCD997
 
 RUN curl -SL $DOTNET_SDK_DOWNLOAD_URL --output dotnet.tar.gz \
-    && echo "$DOTNET_SDK_DOWNLOAD_SHA dotnet.tar.gz" | sha512sum -c - \
     && mkdir -p /usr/share/dotnet \
     && tar -zxf dotnet.tar.gz -C /usr/share/dotnet \
     && rm dotnet.tar.gz \
@@ -45,10 +43,8 @@ RUN mkdir warmup \
 # Install Node.js
 ENV NODE_VERSION 8.11.2
 ENV NODE_DOWNLOAD_URL https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-x64.tar.gz
-ENV NODE_DOWNLOAD_SHA 67dc4c06a58d4b23c5378325ad7e0a2ec482b48cea802252b99ebe8538a3ab79
 
 RUN curl -SL "$NODE_DOWNLOAD_URL" --output nodejs.tar.gz \
-    && echo "$NODE_DOWNLOAD_SHA nodejs.tar.gz" | sha256sum -c - \
     && tar -xzf "nodejs.tar.gz" -C /usr/local --strip-components=1 \
     && rm nodejs.tar.gz \
     && ln -s /usr/local/bin/node /usr/local/bin/nodejs
@@ -68,11 +64,11 @@ RUN apt-get update && \
     apt-get update && \
     apt-get -y install docker-ce
 
-# Install SonarQube Dotnet Tool
-RUN dotnet tool install --global dotnet-sonarscanner --version 4.3.1
-ENV PATH="/root/.dotnet/tools:${PATH}"
-
 RUN sudo usermod -a -G docker jenkins
 
 # drop back to the regular jenkins user - good practice
 USER jenkins
+
+# Install SonarQube Dotnet Tool
+RUN dotnet tool install --global dotnet-sonarscanner --version 4.3.1
+ENV PATH="${PATH}:~/.dotnet/tools"
