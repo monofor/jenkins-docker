@@ -38,6 +38,9 @@ RUN apt-get install -y dotnet-sdk-2.1 && \
 # Install SonarQube Dotnet Tool
 RUN curl -SL https://github.com/SonarSource/sonar-scanner-msbuild/releases/download/4.3.1.1372/sonar-scanner-msbuild-4.3.1.1372-netcoreapp2.0.zip --output dotnet.sonarscanner.zip
 RUN unzip dotnet.sonarscanner.zip -d /usr/share/dotnet-sonarscanner
+RUN chmod +x /usr/share/dotnet-sonarscanner/SonarScanner.MSBuild.dll
+RUN chmod +x /usr/share/dotnet-sonarscanner/sonar-scanner-3.2.0.1227/bin/sonar-scanner
+RUN chmod +x /usr/share/dotnet-sonarscanner/sonar-scanner-3.2.0.1227/bin/sonar-scanner-debug
 
 # Trigger the population of the local package cache
 ENV NUGET_XMLDOC_MODE skip
