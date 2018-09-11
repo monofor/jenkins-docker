@@ -6,6 +6,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends git
 ENV DOTNET_CLI_TELEMETRY_OPTOUT 1
 ENV DOTNET_SKIP_FIRST_TIME_EXPERIENCE 1
 
+# Install jq
+RUN apt-get install jq
+
 # Install .NET CLI dependencies
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
