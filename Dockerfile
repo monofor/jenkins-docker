@@ -72,8 +72,9 @@ RUN apt-get update && \
     apt-get -y install docker-ce
 
 # Install SonarQube Dotnet Tool
-RUN dotnet tool install --global dotnet-sonarscanner
-ENV PATH="$HOME/.dotnet/tools:$PATH"
+RUN dotnet tool install --tool-path /usr/share/dotnet/tools dotnet-sonarscanner
+ENV PATH="/usr/share/dotnet/tools:$PATH"
+RUN chmod +x /usr/share/dotnet/tools/dotnet-sonarscanner
 
 RUN sudo usermod -a -G docker jenkins
 
