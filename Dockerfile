@@ -76,6 +76,8 @@ RUN dotnet tool install --tool-path /usr/share/dotnet/tools dotnet-sonarscanner
 ENV PATH="/usr/share/dotnet/tools:$PATH"
 RUN chmod +x /usr/share/dotnet/tools/dotnet-sonarscanner
 
+RUN chown -R jenkins:jenkins /var/jenkins_home
+
 RUN sudo usermod -a -G docker jenkins
 
 # drop back to the regular jenkins user - good practice
