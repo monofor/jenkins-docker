@@ -8,7 +8,7 @@ This image contains built-in;
 
 We will use directly docker commands without additional things on Jenkins Pipeline.
 
-#### dotnet core (2.1.401)
+#### dotnet core (2.1.x)
 
 We will use it for building our dotnet core projects.
 
@@ -16,7 +16,11 @@ We will use it for building our dotnet core projects.
 
 We will use nodejs for using additional tools.
 
-#### SonarQube dotnet tool (4.3.1)
+#### yarn
+
+We will also use yarn for dependency management.
+
+#### SonarQube dotnet tool (4.4)
 
 This image also contains SonarQube plugin for dotnet.
 
