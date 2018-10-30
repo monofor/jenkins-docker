@@ -77,6 +77,7 @@ ENV PATH="/usr/share/dotnet/tools:$PATH"
 RUN chmod +x /usr/share/dotnet/tools/dotnet-sonarscanner
 
 RUN chown -R jenkins:jenkins /var/jenkins_home
+RUN chown -R jenkins:jenkins /usr/share/dotnet/tools/dotnet-sonarscanner
 
 RUN sudo usermod -a -G docker jenkins
 
