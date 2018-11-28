@@ -79,7 +79,14 @@ RUN chmod +x /usr/share/dotnet/tools/dotnet-sonarscanner
 RUN chown -R jenkins:docker /var/jenkins_home
 RUN chown -R jenkins:docker /usr/share/dotnet/
 
-RUN sudo usermod -a -G docker jenkins
+RUN sudo usermod -aG docker jenkins
+
+# install Terraform
+
+RUN wget --quiet https://releases.hashicorp.com/terraform/0.11.10/terraform_0.11.10_linux_amd64.zip \
+    && unzip terraform_0.11.10_linux_amd64.zip \
+    && mv terraform /usr/bin \
+    && rm terraform_0.11.10_linux_amd64.zip
 
 # drop back to the regular jenkins user - good practice
 USER jenkins

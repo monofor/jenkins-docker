@@ -20,6 +20,10 @@ We will use nodejs for using additional tools.
 
 We will also use yarn for dependency management.
 
+#### Terraform (0.11.10)
+
+Terraform is a tool for building, changing, and versioning infrastructure safely and efficiently. Terraform can manage existing and popular service providers as well as custom in-house solutions.
+
 #### SonarQube dotnet tool (4.4)
 
 This image also contains SonarQube plugin for dotnet.
