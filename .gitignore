@@ -1,4 +1,4 @@
 *.zip
 *.key
 *.secret
-DS_Store
+.DS_Store
