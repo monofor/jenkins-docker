@@ -8,11 +8,11 @@ This image contains built-in;
 
 We will use directly docker commands without additional things on Jenkins Pipeline.
 
-#### dotnet core (2.2.7 and 3.0.0-rc1)
+#### dotnet core (2.2.7 and 3.0.0)
 
 SDK Files;
 2.2.7: `dotnet-sdk-2.2.402-linux-x64.tar.gz`
-3.0.0-rc1: `dotnet-sdk-3.0.100-rc1-014190-linux-x64.tar.gz`
+3.0.0: `dotnet-sdk-3.0.100-linux-x64.tar.gz`
 
 We will use it for building our dotnet core projects.
 
