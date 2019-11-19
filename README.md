@@ -16,7 +16,7 @@ SDK Files;
 
 We will use it for building our dotnet core projects.
 
-#### nodejs (8.11.2)
+#### nodejs (12.13.1 - LTS)
 
 We will use nodejs for using additional tools.
 

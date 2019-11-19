@@ -62,7 +62,7 @@ RUN /installcredprovider.sh
 ### END .NET
 
 # Install Node.js
-ENV NODE_VERSION 8.11.2
+ENV NODE_VERSION 12.13.1
 ENV NODE_DOWNLOAD_URL https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-x64.tar.gz
 ENV NODE_DOWNLOAD_SHA 67dc4c06a58d4b23c5378325ad7e0a2ec482b48cea802252b99ebe8538a3ab79
 
