@@ -22,9 +22,9 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 # Install .NET Core SDK
-RUN echo "Installing dotnet SDK 2.2.402 (v2.2.7)"
-ENV DOTNET_SDK_DOWNLOAD_URL https://download.visualstudio.microsoft.com/download/pr/46411df1-f625-45c8-b5e7-08ab736d3daa/0fbc446088b471b0a483f42eb3cbf7a2/dotnet-sdk-2.2.402-linux-x64.tar.gz
-ENV DOTNET_SDK_DOWNLOAD_SHA 81937DE0874EE837E3B42E36D1CF9E04BD9DEFF6BA60D0162AE7CA9336A78F733E624136D27F559728DF3F681A72A669869BF91D02DB47C5331398C0CFDA9B44
+RUN echo "Installing dotnet SDK 2.1.805 (v2.1)"
+ENV DOTNET_SDK_DOWNLOAD_URL https://download.visualstudio.microsoft.com/download/pr/e730fe40-e2ea-42e5-a5d0-f86830d75849/571e5a2f4ebf9f8117878eeaad5cb19b/dotnet-sdk-2.1.805-linux-x64.tar.gz
+ENV DOTNET_SDK_DOWNLOAD_SHA ceceaf569060c313e9e1b519ad2bfda37bb11c4549689d01080bed84b8a1b64f4c8a35fce4622b2f951a7ccf574e7ea4552c076fa2ba302846d4e1c5ae5b3a0c
 
 RUN curl -SL $DOTNET_SDK_DOWNLOAD_URL --output dotnet.tar.gz \
     && echo "$DOTNET_SDK_DOWNLOAD_SHA dotnet.tar.gz" | sha512sum -c - \
@@ -33,9 +33,9 @@ RUN curl -SL $DOTNET_SDK_DOWNLOAD_URL --output dotnet.tar.gz \
     && rm dotnet.tar.gz \
     && ln -s /usr/share/dotnet/dotnet /usr/bin/dotnet
 
-RUN echo "Installing dotnet SDK 3.1.100 (v3.1.0)"
-ENV DOTNET_SDK_DOWNLOAD_URL https://download.visualstudio.microsoft.com/download/pr/d731f991-8e68-4c7c-8ea0-fad5605b077a/49497b5420eecbd905158d86d738af64/dotnet-sdk-3.1.100-linux-x64.tar.gz
-ENV DOTNET_SDK_DOWNLOAD_SHA 5217ae1441089a71103694be8dd5bb3437680f00e263ad28317665d819a92338a27466e7d7a2b1f6b74367dd314128db345fa8fff6e90d0c966dea7a9a43bd21
+RUN echo "Installing dotnet SDK 3.1.201 (v3.1)"
+ENV DOTNET_SDK_DOWNLOAD_URL https://download.visualstudio.microsoft.com/download/pr/f65a8eb0-4537-4e69-8ff3-1a80a80d9341/cc0ca9ff8b9634f3d9780ec5915c1c66/dotnet-sdk-3.1.201-linux-x64.tar.gz
+ENV DOTNET_SDK_DOWNLOAD_SHA 934bf29734776331691a4724f2174c4e9d2d1dde160f18397fd01abf0f96f2ec1bdd2874db9f0e25dce6993d527ea9c19031a0e67383fd813dcfcb9552ea0c70
 
 RUN curl -SL $DOTNET_SDK_DOWNLOAD_URL --output dotnet.tar.gz \
     && echo "$DOTNET_SDK_DOWNLOAD_SHA dotnet.tar.gz" | sha512sum -c - \
@@ -62,7 +62,7 @@ RUN /installcredprovider.sh
 ### END .NET
 
 # Install Node.js
-ENV NODE_VERSION 12.13.1
+ENV NODE_VERSION 12.16.1
 ENV NODE_DOWNLOAD_URL https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-x64.tar.gz
 ENV NODE_DOWNLOAD_SHA 074a6129da34b768b791f39e8b74c6e4ab3349d1296f1a303ef3547a7f9cf9be
 
