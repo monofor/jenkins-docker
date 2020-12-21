@@ -22,9 +22,13 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 # Install .NET Core SDK
-RUN echo "Installing dotnet SDK 2.1.805 (v2.1)"
-ENV DOTNET_SDK_DOWNLOAD_URL https://download.visualstudio.microsoft.com/download/pr/e730fe40-e2ea-42e5-a5d0-f86830d75849/571e5a2f4ebf9f8117878eeaad5cb19b/dotnet-sdk-2.1.805-linux-x64.tar.gz
-ENV DOTNET_SDK_DOWNLOAD_SHA ceceaf569060c313e9e1b519ad2bfda37bb11c4549689d01080bed84b8a1b64f4c8a35fce4622b2f951a7ccf574e7ea4552c076fa2ba302846d4e1c5ae5b3a0c
+
+# 2.1.811
+# https://download.visualstudio.microsoft.com/download/pr/4281b67c-db32-4e7e-aa67-976a59839b81/75373c7621c37c2ac7a83fc60d415afd/dotnet-sdk-2.1.811-linux-x64.tar.gz
+# ddc6a583c90405a1cf57c33b2ee285ce34d59f82c4f7bc01900f4ce87c45e295de96a0293ad51937ac1935611b87bc73cdafa8acd93b6fda5a2c624b00070326
+RUN echo "Installing dotnet SDK 2.1.811 (v2.1)"
+ENV DOTNET_SDK_DOWNLOAD_URL https://download.visualstudio.microsoft.com/download/pr/4281b67c-db32-4e7e-aa67-976a59839b81/75373c7621c37c2ac7a83fc60d415afd/dotnet-sdk-2.1.811-linux-x64.tar.gz
+ENV DOTNET_SDK_DOWNLOAD_SHA ddc6a583c90405a1cf57c33b2ee285ce34d59f82c4f7bc01900f4ce87c45e295de96a0293ad51937ac1935611b87bc73cdafa8acd93b6fda5a2c624b00070326
 
 RUN curl -SL $DOTNET_SDK_DOWNLOAD_URL --output dotnet.tar.gz \
     && echo "$DOTNET_SDK_DOWNLOAD_SHA dotnet.tar.gz" | sha512sum -c - \
@@ -33,9 +37,25 @@ RUN curl -SL $DOTNET_SDK_DOWNLOAD_URL --output dotnet.tar.gz \
     && rm dotnet.tar.gz \
     && ln -s /usr/share/dotnet/dotnet /usr/bin/dotnet
 
-RUN echo "Installing dotnet SDK 3.1.201 (v3.1)"
-ENV DOTNET_SDK_DOWNLOAD_URL https://download.visualstudio.microsoft.com/download/pr/f65a8eb0-4537-4e69-8ff3-1a80a80d9341/cc0ca9ff8b9634f3d9780ec5915c1c66/dotnet-sdk-3.1.201-linux-x64.tar.gz
-ENV DOTNET_SDK_DOWNLOAD_SHA 934bf29734776331691a4724f2174c4e9d2d1dde160f18397fd01abf0f96f2ec1bdd2874db9f0e25dce6993d527ea9c19031a0e67383fd813dcfcb9552ea0c70
+# 3.1.404
+# https://download.visualstudio.microsoft.com/download/pr/ec187f12-929e-4aa7-8abc-2f52e147af1d/56b0dbb5da1c191bff2c271fcd6e6394/dotnet-sdk-3.1.404-linux-x64.tar.gz
+# 94d8eca3b4e2e6c36135794330ab196c621aee8392c2545a19a991222e804027f300d8efd152e9e4893c4c610d6be8eef195e30e6f6675285755df1ea49d3605
+RUN echo "Installing dotnet SDK 3.1.404 (v3.1)"
+ENV DOTNET_SDK_DOWNLOAD_URL https://download.visualstudio.microsoft.com/download/pr/ec187f12-929e-4aa7-8abc-2f52e147af1d/56b0dbb5da1c191bff2c271fcd6e6394/dotnet-sdk-3.1.404-linux-x64.tar.gz
+ENV DOTNET_SDK_DOWNLOAD_SHA 94d8eca3b4e2e6c36135794330ab196c621aee8392c2545a19a991222e804027f300d8efd152e9e4893c4c610d6be8eef195e30e6f6675285755df1ea49d3605
+
+RUN curl -SL $DOTNET_SDK_DOWNLOAD_URL --output dotnet.tar.gz \
+    && echo "$DOTNET_SDK_DOWNLOAD_SHA dotnet.tar.gz" | sha512sum -c - \
+    && mkdir -p /usr/share/dotnet \
+    && tar -zxf dotnet.tar.gz -C /usr/share/dotnet \
+    && rm dotnet.tar.gz
+
+# 5.1.201
+# https://download.visualstudio.microsoft.com/download/pr/a0487784-534a-4912-a4dd-017382083865/be16057043a8f7b6f08c902dc48dd677/dotnet-sdk-5.0.101-linux-x64.tar.gz
+# 398d88099d765b8f5b920a3a2607c2d2d8a946786c1a3e51e73af1e663f0ee770b2b624a630b1bec1ceed43628ea8bc97963ba6c870d42bec064bde1cd1c9edb
+RUN echo "Installing dotnet SDK 5.0.101 (v5.0)"
+ENV DOTNET_SDK_DOWNLOAD_URL https://download.visualstudio.microsoft.com/download/pr/a0487784-534a-4912-a4dd-017382083865/be16057043a8f7b6f08c902dc48dd677/dotnet-sdk-5.0.101-linux-x64.tar.gz
+ENV DOTNET_SDK_DOWNLOAD_SHA 398d88099d765b8f5b920a3a2607c2d2d8a946786c1a3e51e73af1e663f0ee770b2b624a630b1bec1ceed43628ea8bc97963ba6c870d42bec064bde1cd1c9edb
 
 RUN curl -SL $DOTNET_SDK_DOWNLOAD_URL --output dotnet.tar.gz \
     && echo "$DOTNET_SDK_DOWNLOAD_SHA dotnet.tar.gz" | sha512sum -c - \
@@ -52,9 +72,9 @@ RUN mkdir warmup \
     && rm -rf warmup \
     && rm -rf /tmp/NuGetScratch
 
-
 # Installing nuget package manager credential provider
 
+RUN echo "Installing nuget package manager credential provider"
 ADD installcredprovider.sh /
 RUN chmod +x installcredprovider.sh
 RUN /installcredprovider.sh
@@ -62,6 +82,7 @@ RUN /installcredprovider.sh
 ### END .NET
 
 # Install Node.js
+RUN echo "Installing NodeJS"
 ENV NODE_VERSION 12.16.1
 ENV NODE_DOWNLOAD_URL https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-x64.tar.gz
 ENV NODE_DOWNLOAD_SHA b2d9787da97d6c0d5cbf24c69fdbbf376b19089f921432c5a61aa323bc070bea
@@ -73,9 +94,11 @@ RUN curl -SL "$NODE_DOWNLOAD_URL" --output nodejs.tar.gz \
     && ln -s /usr/local/bin/node /usr/local/bin/nodejs
 
 # Install yarn
+RUN echo "Installing yarn"
 RUN npm install -g yarn
 
 # Install Docker
+RUN echo "Installing Docker"
 RUN apt-get update && \
     apt-get -y install apt-transport-https \
     ca-certificates \
@@ -91,6 +114,7 @@ RUN apt-get update && \
     apt-get -y install docker-ce
 
 # Install SonarQube Dotnet Tool
+RUN echo "Installing SonarQube Tools"
 RUN dotnet tool install --tool-path /usr/share/dotnet/tools dotnet-sonarscanner
 ENV PATH="/usr/share/dotnet/tools:$PATH"
 RUN chmod +x /usr/share/dotnet/tools/dotnet-sonarscanner
@@ -101,7 +125,7 @@ RUN chown -R jenkins:docker /usr/share/dotnet/
 RUN sudo usermod -aG docker jenkins
 
 # install Terraform
-
+RUN echo "Installing Terraform"
 RUN wget https://releases.hashicorp.com/terraform/0.11.13/terraform_0.11.13_linux_amd64.zip \
     && unzip terraform_0.11.13_linux_amd64.zip \
     && mv terraform /usr/bin \
