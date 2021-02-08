@@ -131,5 +131,20 @@ RUN wget https://releases.hashicorp.com/terraform/0.11.13/terraform_0.11.13_linu
     && mv terraform /usr/bin \
     && rm terraform_0.11.13_linux_amd64.zip
 
+
+# install cypress preqs
+RUN apt-get update && \
+    apt-get -y install \
+    libgtk2.0-0 \
+    libgtk-3-0 \
+    libgbm-dev \
+    libnotify-dev \
+    libgconf-2-4 \
+    libnss3 libxss1 \
+    libasound2 \
+    libxtst6 \
+    xauth \
+    xvfb
+
 # drop back to the regular jenkins user - good practice
 USER jenkins
