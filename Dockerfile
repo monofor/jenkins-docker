@@ -122,7 +122,7 @@ RUN chmod +x /usr/share/dotnet/tools/dotnet-sonarscanner
 RUN chown -R jenkins:docker /var/jenkins_home
 RUN chown -R jenkins:docker /usr/share/dotnet/
 
-RUN sudo usermod -aG docker jenkins
+# RUN sudo usermod -aG docker jenkins
 
 # install Terraform
 RUN echo "Installing Terraform"
