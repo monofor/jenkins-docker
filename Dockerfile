@@ -9,12 +9,12 @@ ENV DOTNET_SKIP_FIRST_TIME_EXPERIENCE 1
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
     libc6 \
-    libcurl3 \
+    libcurl4 \
     libgcc1 \
     libgssapi-krb5-2 \
-    libicu57 \
+    libicu63 \
     liblttng-ust0 \
-    libssl1.0.2 \
+    libssl1.1 \
     libstdc++6 \
     libunwind8 \
     libuuid1 \
